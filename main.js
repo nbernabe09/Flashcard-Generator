@@ -7,7 +7,7 @@ var firstPresident = new BasicCard(
 );
 console.log("BasicCard:");
 firstPresident.post();
-console.log("--------------------")
+console.log("--------------------");
 
 var firstPresidentCloze = new ClozeCard(
   "George Washington was the first president of the United States.",
@@ -15,7 +15,7 @@ var firstPresidentCloze = new ClozeCard(
 );
 console.log("ClozeCard:");
 firstPresidentCloze.post();
-console.log("--------------------")
+console.log("--------------------");
 
 var brokenCloze = new ClozeCard("This doesn't work", "oops");
 console.log("Broken ClozeCard:");
