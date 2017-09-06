@@ -3,8 +3,6 @@ var ClozeCard = require('./ClozeCard.js');
 var inquirer = require('inquirer');
 var fs = require("fs");
 
-var clozeArr = [];
-
 function askTask() {
   inquirer.prompt([
     {
@@ -46,18 +44,16 @@ function askCreate() {
 function createBasic() {
   inquirer.prompt([
     {
-      name: "question",
+      name: "front",
       message: "Type in the question:"
     }, {
-      name: "answer",
+      name: "back",
       message: "Type in the answer:"
     }
   ]).then(function (answers) {
-    var newBasic = new BasicCard(answers.question, answers.answer);
-    fs.appendFile("basicArr.txt", "|" + JSON.stringify(newBasic), function(err) {
-      if (err) return console.log(err);
-    });
-    askTask();
+    var newBasic = new BasicCard(answers.front, answers.back);
+    newBasic.post();
+    askCreate();
   });
 }
 
@@ -72,10 +68,8 @@ function createCloze() {
     }
   ]).then(function (answers) {
     var newCloze = new ClozeCard(answers.text, answers.cloze);
-    fs.appendFile("clozeArr.txt", "|" + JSON.stringify(newCloze), function(err) {
-      if (err) return console.log(err);
-    });
-    askTask();
+    newCloze.post();
+    askCreate();
   });
 }
 
@@ -148,24 +142,5 @@ function clozeQuestion() {
   });
 }
 
+console.log("Welcome to the Flashcard Generator!");
 askTask();
-
-// var firstPresident = new BasicCard(
-//   "Who was the first president of the United States?",
-//   "George Washington"
-// );
-// console.log("BasicCard:");
-// firstPresident.post();
-// console.log("--------------------");
-
-// var firstPresidentCloze = new ClozeCard(
-//   "George Washington was the first president of the United States.",
-//   "George Washington"
-// );
-// console.log("ClozeCard:");
-// firstPresidentCloze.post();
-// console.log("--------------------");
-
-// var brokenCloze = new ClozeCard("This doesn't work", "oops");
-// console.log("Broken ClozeCard:");
-// brokenCloze.post();
